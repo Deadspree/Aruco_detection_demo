@@ -12,3 +12,7 @@ pip install -r requirements.txt
 * python version: 3.10.0
 * Detection time(for an image with 5 aruco marker): 0.0157 seconds
 
+### Run the detection
+```bash
+python detection.py input\singlemarkersoriginal.jpg output\output_image.png
+```
