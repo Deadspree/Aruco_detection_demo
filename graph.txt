@@ -1,0 +1,27 @@
+@startuml
+hide empty description
+Image: ArUco Marker included
+state Result {
+    state "The position of its four corners \nin the image (in their original order)" as long1{
+    }
+    state "The id of the marker" as long2{
+    }
+    
+    
+}
+
+state Candidate {
+    Image ---> Thresholded_Image: Adaptive_Thresholding
+    Thresholded_Image: Contours
+    Thresholded_Image ---> Candidate_Contours: Filtering
+    Candidate_Contours -> long1
+}
+
+state Analyzing_Inner_Codification {
+    Candidate_Contours -> Candidate_Marker
+    Candidate_Marker ---> Perspective_Distorted_Image
+    Perspective_Distorted_Image ---> Black_White_Pixelated_Image: Otsu_Thresholding
+    Black_White_Pixelated_Image ---> long2: Counting_Black_and_White_Pixels
+}
+@enduml
+
