@@ -1,24 +1,20 @@
-"""
-Aruco Marker detection
 
-Usage:
-    detection.py INPUT_PATH OUTPUT_PATH
-
-Options:
-
--h --help             show this screen
-"""
 # Standard Library
 import time
+import argparse
 # External Library
 import cv2
 import numpy as np
-from docopt import docopt
 
 def main():
-    args = docopt(__doc__)
-    input = args['INPUT_PATH']
-    output = args['OUTPUT_PATH']
+    parser = argparse.ArgumentParser(description="Aruco Marker Detection")
+    parser.add_argument("input", help="Path to input image")
+    parser.add_argument("output", help="Path to output image")
+
+    args = parser.parse_args()
+   
+    input = args.input
+    output = args.output
     start = time.time()
     image = cv2.imread(input)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
