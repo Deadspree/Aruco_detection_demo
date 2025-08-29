@@ -14,5 +14,10 @@ pip install -r requirements.txt
 
 ### Run the detection
 ```bash
-python detection.py input\singlemarkersoriginal.jpg output\output_image.png
+python detection.py input_image_path output_image_path
+```
+
+### Run real-time detection
+```bash
+python realtime_detect.py input_video_path output_video_path
 ```
