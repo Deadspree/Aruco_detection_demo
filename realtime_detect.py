@@ -79,9 +79,9 @@ def aruco_detection(frame: np.ndarray,
     """
     !Perform Aruco_detection on 1 frame and visualize
 
-    @frame: Input image (BGR format)
-    @dictionary: AurUco dictionary type. 
-    @draw: Whether to draw markers on the frame. 
+    @frame (np.ndarray): Input image (BGR format)
+    @dictionary (int): AurUco dictionary type. 
+    @draw (bool): Whether to draw markers on the frame. 
 
     """
     if frame is None:
