@@ -3,20 +3,23 @@ import time
 import argparse
 import logging
 from pathlib import Path
+from typing import Tuple, Optional
+
 # External Library
 import cv2
+import numpy as np
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("video_loader.log"),  # Save logs here
-        logging.StreamHandler()                   # Also print to console
+        logging.FileHandler("video_loader.log"), 
+        logging.StreamHandler()                   
     ]
 )
 
 
-def process_video(input_path, output_path):
+def process_video(input_path: str, output_path: str) -> None:
      """
      ! Process a video stream frame-by-frame using aruco_deteciton().
 
@@ -38,7 +41,7 @@ def process_video(input_path, output_path):
 
      out = None
      if output:
-        fourcc = cv2.VideoWriter_fourcc(*'XVID')  # codec for .mp4
+        fourcc = cv2.VideoWriter_fourcc(*'XVID') 
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         out = cv2.VideoWriter(output, fourcc, 30.0, (width, height))
@@ -70,9 +73,9 @@ def process_video(input_path, output_path):
          out.release()
      cv2.destroyAllWindows()         
 
-def aruco_detection(frame,
-                    dictionary = cv2.aruco.DICT_6X6_250,
-                    draw = True):
+def aruco_detection(frame: np.ndarray,
+                    dictionary: int = cv2.aruco.DICT_6X6_250,
+                    draw: bool = True) -> Tuple[np.ndarray, Optional[np.ndarray], Optional[list[np.ndarray]]]:
     """
     !Perform Aruco_detection on 1 frame and visualize
 
@@ -104,6 +107,12 @@ def aruco_detection(frame,
     return output_frame, ids, corners
 
 def main():
+    """
+    !Aruco realtime detection pipeline
+
+    Usage: realtime_detect.py input_path output_path
+
+    """
     parser = argparse.ArgumentParser(description="Aruco Marker Detection")
     parser.add_argument("input", help="Path to input image")
     parser.add_argument("output", help="Path to output image")
