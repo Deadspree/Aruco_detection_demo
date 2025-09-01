@@ -27,9 +27,9 @@ python realtime_detect.py input_video_path output_video_path
 ```bash
 docker-compose build
 ```
-* Start the container
+* Start the container in the background
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 * Open a shell in the running container
 ```bash
