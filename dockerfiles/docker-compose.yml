@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  aruco_marker_app:
+    build:
+      context: ..
+      dockerfile: dockerfiles/Dockerfile
+    container_name: aruco_marker_container
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: bash
+    stdin_open: true
+    tty: true
