@@ -31,5 +31,5 @@ docker exec -it aruco_marker_container bash
 ```
 * Run the script for pose_estimation
 ```bash
-python3 script/pose_estimation.py input/pose_input.mp4 output/pose_output.mp4
+python3 scripts/pose_estimation.py input/pose_input.mp4 output/pose_output.mp4
 ```

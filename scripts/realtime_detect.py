@@ -9,7 +9,11 @@ import os
 import cv2
 import numpy as np
 
-log_file = os.path.join(os.path.dirname(__file__), "..", "log", "video_loader.log")
+# Get the project root (assuming this file is somewhere inside the project)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent  # two levels up from current file
+
+# Build log file path
+log_file = PROJECT_ROOT / "log" / "video_loader.log"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,8 +34,19 @@ def process_video(input_path: str, output_path: str) -> None:
 
      """
 
-     input = Path(input_path)
-     output = Path(output_path)
+     
+     SCRIPT_DIR = Path(__file__).resolve().parent  
+
+    
+     PROJECT_ROOT = SCRIPT_DIR.parent
+
+    # Input and output paths relative to project root
+     input_full_path = PROJECT_ROOT / "input" / input_path
+     output_full_path = PROJECT_ROOT / "output" / output_path
+
+    # Convert to Path objects
+     input = Path(input_full_path)
+     output = Path(output_full_path)
 
      if not input.exists():
          logging.error(f"Video file not found: {input}")

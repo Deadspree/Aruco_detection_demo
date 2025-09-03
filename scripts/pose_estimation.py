@@ -10,7 +10,11 @@ import os
 import cv2
 import numpy as np
 
-log_file = os.path.join(os.path.dirname(__file__), "..", "log", "pose_estimation.log")
+# Get the project root (assuming this file is somewhere inside the project)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent  # two levels up from current file
+
+# Build log file path
+log_file = PROJECT_ROOT / "log" / "pose_estimation.log"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,8 +33,19 @@ def process_video(input_path: str, output_path: str) -> None:
 
      """
 
-     input = Path(input_path)
-     output = Path(output_path)
+     SCRIPT_DIR = Path(__file__).resolve().parent  
+
+    
+     PROJECT_ROOT = SCRIPT_DIR.parent
+
+    # Input and output paths relative to project root
+     input_full_path = PROJECT_ROOT / "input" / input_path
+     output_full_path = PROJECT_ROOT / "output" / output_path
+
+    # Convert to Path objects
+     input = Path(input_full_path)
+     output = Path(output_full_path)
+
      has_display = os.environ.get("DISPLAY") is not None or os.name == "nt"
 
      if not input.exists():
@@ -54,12 +69,13 @@ def process_video(input_path: str, output_path: str) -> None:
          ret, frame = cap.read()
          if not ret:
              break
-         BASE_DIR = os.path.dirname(__file__)      # directory of this script (src/)
-         INPUT_DIR = os.path.join(BASE_DIR, "..", "input")
+         BASE_DIR = Path(__file__).resolve().parent 
 
-         matrix_coefficients_path = os.path.join(INPUT_DIR, "calibration_matrix.npy")
-         distortion_coefficients_path = os.path.join(INPUT_DIR, "distortion_coefficients.npy")
+         PROJECT_ROOT = BASE_DIR.parent
+         INPUT_DIR = PROJECT_ROOT / "input"
 
+         matrix_coefficients_path = INPUT_DIR / "calibration_matrix.npy"
+         distortion_coefficients_path = INPUT_DIR / "distortion_coefficients.npy"
          estimated_frame = pose_estimation(
             image=frame,
             matrix_coefficients_path=matrix_coefficients_path,
